@@ -36,7 +36,7 @@ module.exports = {
    * createApplication
    * Create a Backbone Marionette applicaiton with all the Bolster trimmings
    */
-  createApplication: function(options) {
+  createApp: function(options) {
     Backbone.Relational.store.addModelScope(options.modelScope);
 
     // this.config = options.config;
