@@ -19,15 +19,13 @@ module.exports = (function() {
    */
   var Module = function() {
     
-    tannoy.addLogging(this);
+    // tannoy.addLogging(this);
 
     // this.logger = new Logger(name, type, this.verbose);
-    // this.log = console.log.bind(console);
-    // this.log = function() {
-    //   // alert(this.name);
-    //   console.log.apply(console, arguments);
+
+    // if (this.radioEvents) {
+    //   this.radioManager = new radio.Manager(this);
     // }
-    // this.log('initialize()');
 
     this.started = false;
     /**

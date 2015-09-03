@@ -31,7 +31,7 @@ module.exports = (function() {
 
   var Collection = function() {
 
-    tannoy.addLogging(this);
+    // tannoy.addLogging(this);
 
     /**
      * Generate the URL
