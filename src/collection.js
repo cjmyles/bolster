@@ -11,6 +11,18 @@
 var _ = require('underscore');
 // var config = require('libs/config');
 
+var config = {
+  api: {
+    PAPI: {
+      url: function() { return 'http://program-dev.abcradio.net.au/api/v1/' }
+    },
+    MAPI: {
+      url: function() { return 'http://music.abcradio.net.au/api/v1/' }
+    }
+  }
+  
+}
+
 var tannoy = require('../libs/tannoy');
 
 /**
