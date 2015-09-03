@@ -120,7 +120,7 @@ module.exports = {
     // this.app.module('Bootstrap', require('modules/bootstrap'));      
 
     _.each(modules, function(value, key) {
-      this.app.module(key, value.src);      
+      this.app.module(key, value);      
       this.modules.push(key);
     }, this);
 

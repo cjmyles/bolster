@@ -9,7 +9,9 @@
  */
 
 var _ = require('underscore');
-var config = require('libs/config');
+// var config = require('libs/config');
+
+var tannoy = require('../libs/tannoy');
 
 /**
  * The Collection definition
@@ -18,7 +20,8 @@ var config = require('libs/config');
 module.exports = (function() {
 
   var Collection = function() {
-    Collection.__super__.constructor.apply(this, arguments);
+
+    tannoy.addLogging(this);
 
     /**
      * Generate the URL
@@ -43,6 +46,8 @@ module.exports = (function() {
         return data.items;
       }
     };
+
+    Collection.__super__.constructor.apply(this, arguments);
   };
 
   // Collection.prototype.isWorthFetching = function() {
