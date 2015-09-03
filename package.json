@@ -1,0 +1,35 @@
+{
+  "author": {
+    "name": "Craig Myles",
+    "url": "https://github.com/cjmyles"
+  },
+  "name": "bolster",
+  "description": "Bolster your marionette application",
+  "keywords": [
+    "backbone",
+    "plugin",
+    "marionette",
+    "composite",
+    "architecture",
+    "single",
+    "page",
+    "app",
+    "client",
+    "browser"
+  ],
+  "url": "",
+  "homepage": "",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "main": "bolster.js",
+  "version": "0.0.1",
+  "bugs": {
+    "url": ""
+  },
+  "dependencies": {
+    "underscore": ">=1.4.4",
+    "backbone": ">=1.0.0"
+  }
+}
