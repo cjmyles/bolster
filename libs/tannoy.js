@@ -1,17 +1,38 @@
 'use strict';
 
-module.exports = {
-  action: 'log',
+var _ = require('underscore');
 
-  useConsole: (function() {
-    // Whether this browser has a console we can call directly
-    return window.console && typeof console.log === 'function';
-  })(),
+var useConsole = (function() {
+  // Whether this browser has a console we can call directly
+  return window.console && typeof console.log === 'function';
+})();
+
+
+
+// function addLogging(object) {
+//   object.log = object.verbose ? console.log.bind(console) : _.noop;
+//   object.error = object.verbose ? console.error.bind(console) : _.noop;
+//   object.announce = function(message) {
+//     object.log(object.name + '.' + message);
+//   }
+// }
+
+module.exports = {
+
+  addLogging: function(object) {
+    object.log = object.verbose ? console.log.bind(console) : _.noop;
+    object.error = object.verbose ? console.error.bind(console) : _.noop;
+    object.announce = function(message) {
+      object.log(object.name + '.' + message);
+    }
+  },
+
+  action: 'log',
 
   console: function() {
     // log.history.push(arguments);
 
-    if (this.useConsole) {
+    if (useConsole) {
       var args = arguments,
         // Convert arguments to an array
         sliced = Array.prototype.slice.call(args);
@@ -41,4 +62,5 @@ module.exports = {
     this.action = 'error';
     this.console.apply(this, arguments);
   }
+  
 };

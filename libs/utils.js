@@ -4,7 +4,7 @@ var Backbone = require('backbone');
 var Mn = require('backbone.marionette');
 // var _ = require('underscore');
 
-var logger = require('./logger');
+var tannoy = require('./tannoy');
 
 module.exports = {
 
@@ -38,7 +38,7 @@ module.exports = {
   },
 
   logVersion: function(name, version) {
-    logger.log('%c' + name + ' version ' + version, 'color:blue');
+    tannoy.log('%c' + name + ' version ' + version, 'color:blue');
   }
 
 };

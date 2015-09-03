@@ -1,7 +1,10 @@
 'use strict';
 
 var Mn = require('backbone.marionette');
+var _ = require('underscore');
 
+var utils = require('../libs/utils');
+var tannoy = require('../libs/tannoy');
 
 /**
  * The Module definition
@@ -15,7 +18,16 @@ module.exports = (function() {
    * @class
    */
   var Module = function() {
-    Module.__super__.constructor.apply(this, arguments);
+    
+    tannoy.addLogging(this);
+
+    // this.logger = new Logger(name, type, this.verbose);
+    // this.log = console.log.bind(console);
+    // this.log = function() {
+    //   // alert(this.name);
+    //   console.log.apply(console, arguments);
+    // }
+    // this.log('initialize()');
 
     this.started = false;
     /**
@@ -31,7 +43,7 @@ module.exports = (function() {
      * 
      */
     this.on('before:start', function() {
-      // this.log('start()');
+      this.announce('start()');
 
       // if (this.radioManager) {
       //   this.radioManager.start();
@@ -45,7 +57,7 @@ module.exports = (function() {
      * 
      */
     this.on('before:stop', function() {
-      this.log('stop()');
+      this.announce('stop()');
 
       // if (this.radioManager) {
       //   this.radioManager.stop();
@@ -54,7 +66,10 @@ module.exports = (function() {
 
       this.started = false;
     }, this);
+
+    Module.__super__.constructor.apply(this, arguments);    
   };
 
   return Module;
+
 }());

@@ -9,7 +9,8 @@
  */
 
 var _ = require('underscore');
-var config = require('libs/config');
+
+var tannoy = require('../libs/tannoy');
 
 /**
  * The Model definition
@@ -23,7 +24,8 @@ module.exports = (function() {
    * @class
    */
   var Model = function() {
-    Model.__super__.constructor.apply(this, arguments);
+    
+    tannoy.addLogging(this);
 
     /**
      * Generate the URL
@@ -68,7 +70,10 @@ module.exports = (function() {
 
       return isEmpty;
     };
+
+    Model.__super__.constructor.apply(this, arguments);
   };
 
   return Model;
+  
 }());
