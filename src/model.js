@@ -9,6 +9,16 @@
  */
 
 var _ = require('underscore');
+var config = {
+  api: {
+    PAPI: {
+      url: function() { return 'http://program-dev.abcradio.net.au/api/v1/' }
+    },
+    MAPI: {
+      url: function() { return 'http://music.abcradio.net.au/api/v1/' }
+    }
+  }
+}
 
 var tannoy = require('../libs/tannoy');
 
@@ -25,7 +35,7 @@ module.exports = (function() {
    */
   var Model = function() {
     
-    tannoy.addLogging(this);
+    // tannoy.addLogging(this);
 
     /**
      * Generate the URL

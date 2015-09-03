@@ -6,34 +6,63 @@ var Backbone = require('backbone');
 Backbone.$ = jQuery;
 var _ = require('underscore');
 var Mn = require('backbone.marionette');
-var Relational = require('backbone-relational');
-var BackboneRadio = require('backbone.radio');
+require('backbone-relational');
+require('backbone.radio');
 
 var utils = require('./libs/utils');
+var tannoy = require('./libs/tannoy');
 
 var Model = require('./src/model');
 var Collection = require('./src/collection');
 var Module = require('./src/module');
+var Base = require('./src/base');
+
+
+var extend = function(Root, Factory) {
+  utils._extends(Root, Factory);
+  return Root;
+};
+
+var extendBase = function(Parent) {
+  var base = Base();
+  return extend(base, Parent);
+};
+
+var extendObject = function(Root, Parent) {
+  utils._extends(Root, extendBase(Parent));
+  return Root;
+}
+
+// var BrModule = (function(Parent) {
+//   var X = Base();
+//   utils._extends(X, Parent);
+//   return X;
+// })(Mn.Module);  
+
 
 module.exports = {
 
   // Classes
   // --------------------------
 
-  Model: (function(Parent) {
-    utils._extends(Model, Parent);
-    return Model;
-  })(Backbone.RelationalModel),
+  Model: (extendObject)(Model, Backbone.RelationalModel),
+  
+  Collection: (extendObject)(Collection, Backbone.Collection),
 
-  Collection: (function(Parent) {
-    utils._extends(Collection, Parent);
-    return Collection;
-  })(Backbone.Collection),
+  Module: (extendObject)(Module, Mn.Module),  
 
-  Module: (function(Parent) {
-    utils._extends(Module, Parent);
-    return Module;
-  })(Mn.Module),  
+  LayoutView: (extendBase)(Mn.LayoutView),  
+
+  // LayoutView: (function(Parent) {
+  //   var X = Base();
+  //   utils._extends(X, Parent);
+  //   return X;
+  // })(Mn.LayoutView),  
+
+  // ItemView: (function(Parent) {
+  //   utils._extends(Generic, Parent);
+  //   return Generic;
+  // })(Mn.ItemView),  
 
   // Attributes
   // --------------------------
@@ -82,16 +111,16 @@ module.exports = {
         start = _.difference(_.union(that.traffic.always_on, modules), state.started),
         stop = _.difference(that.modules, that.traffic.always_on, that.traffic.dont_stop, modules, state.stopped);
       
-      // that.log('Needed', modules);
-      // that.log('Already started', state.started);
-      // that.log('Already stopped', state.stopped);
+      tannoy.log('Needed', modules);
+      tannoy.log('Already started', state.started);
+      tannoy.log('Already stopped', state.stopped);
 
-      // that.log('Stopping', stop);
+      tannoy.log('Stopping', stop);
       _.each(stop, function(name) {
         that.stopModule(name);
       });
 
-      // that.log('Starting', start);
+      tannoy.log('Starting', start);
       _.each(start, function(name) {
         that.startModule(name);
       });
@@ -130,7 +159,7 @@ module.exports = {
     //     this.modules.push(module.moduleName);
     //   // }
     // }, this); 
-    console.log(this.modules);
+    // console.log(this.modules);
   },
 
   stopModule: function(name) {
