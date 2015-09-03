@@ -6,14 +6,16 @@ var Backbone = require('backbone');
 Backbone.$ = jQuery;
 var _ = require('underscore');
 var Mn = require('backbone.marionette');
-var Relational = require('backbone-relational');
-var BackboneRadio = require('backbone.radio');
+require('backbone-relational');
+require('backbone.radio');
 
 var utils = require('./libs/utils');
+var tannoy = require('./libs/tannoy');
 
 var Model = require('./src/model');
 var Collection = require('./src/collection');
 var Module = require('./src/module');
+var Generic = require('./src/generic');
 
 module.exports = {
 
@@ -35,6 +37,16 @@ module.exports = {
     return Module;
   })(Mn.Module),  
 
+  LayoutView: (function(Parent) {
+    utils._extends(Generic, Parent);
+    return Generic;
+  })(Mn.LayoutView),  
+
+  ItemView: (function(Parent) {
+    utils._extends(Generic, Parent);
+    return Generic;
+  })(Mn.ItemView),  
+
   // Attributes
   // --------------------------
 
@@ -48,6 +60,9 @@ module.exports = {
    * Create a Backbone Marionette applicaiton with all the Bolster trimmings
    */
   createApp: function(options) {
+    console.log(new Mn.LayoutView())
+    console.log(new this.LayoutView())
+
     var config = options.config;
 
     Backbone.Relational.store.addModelScope(options.modelScope);
@@ -82,16 +97,16 @@ module.exports = {
         start = _.difference(_.union(that.traffic.always_on, modules), state.started),
         stop = _.difference(that.modules, that.traffic.always_on, that.traffic.dont_stop, modules, state.stopped);
       
-      // that.log('Needed', modules);
-      // that.log('Already started', state.started);
-      // that.log('Already stopped', state.stopped);
+      tannoy.log('Needed', modules);
+      tannoy.log('Already started', state.started);
+      tannoy.log('Already stopped', state.stopped);
 
-      // that.log('Stopping', stop);
+      tannoy.log('Stopping', stop);
       _.each(stop, function(name) {
         that.stopModule(name);
       });
 
-      // that.log('Starting', start);
+      tannoy.log('Starting', start);
       _.each(start, function(name) {
         that.startModule(name);
       });
@@ -130,7 +145,7 @@ module.exports = {
     //     this.modules.push(module.moduleName);
     //   // }
     // }, this); 
-    console.log(this.modules);
+    // console.log(this.modules);
   },
 
   stopModule: function(name) {
