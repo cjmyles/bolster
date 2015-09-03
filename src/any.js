@@ -12,18 +12,11 @@ var tannoy = require('../libs/tannoy');
  */
 module.exports = (function() {
 
-  /**
-   * Module
-   * @desc A model
-   * @class
-   */
-  var Module = function() {
-    
+  var Any = function() {
     tannoy.addLogging(this);
-
-    Module.__super__.constructor.apply(this, arguments);    
+    Any.__super__.constructor.apply(this, arguments);
   };
 
-  return Module;
+  return Any;
 
 }());

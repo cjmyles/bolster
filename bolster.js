@@ -15,7 +15,7 @@ var tannoy = require('./libs/tannoy');
 var Model = require('./src/model');
 var Collection = require('./src/collection');
 var Module = require('./src/module');
-var Generic = require('./src/generic');
+var Any = require('./src/any');
 
 module.exports = {
 
@@ -38,14 +38,14 @@ module.exports = {
   })(Mn.Module),  
 
   LayoutView: (function(Parent) {
-    utils._extends(Generic, Parent);
-    return Generic;
+    utils._extends(Any, Parent);
+    return Any;
   })(Mn.LayoutView),  
 
-  ItemView: (function(Parent) {
-    utils._extends(Generic, Parent);
-    return Generic;
-  })(Mn.ItemView),  
+  // ItemView: (function(Parent) {
+  //   utils._extends(Generic, Parent);
+  //   return Generic;
+  // })(Mn.ItemView),  
 
   // Attributes
   // --------------------------
@@ -60,9 +60,6 @@ module.exports = {
    * Create a Backbone Marionette applicaiton with all the Bolster trimmings
    */
   createApp: function(options) {
-    console.log(new Mn.LayoutView())
-    console.log(new this.LayoutView())
-
     var config = options.config;
 
     Backbone.Relational.store.addModelScope(options.modelScope);
