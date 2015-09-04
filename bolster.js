@@ -24,12 +24,16 @@ module.exports = {
   // Attributes
   // --------------------------
 
+  verbose: false,
+
   modules: [],
 
   // Protected Functions
   // --------------------------
 
   initialize: function(options) {
+    ole.assimilate(this);
+
     var Radio = RadioTemplate(options);
     this.radio = new Radio();
     
@@ -52,6 +56,7 @@ module.exports = {
     this.Collection = (extendObject)(Collection, Backbone.Collection);
     this.Module = (extendObject)(Module, Mn.Module);
     this.LayoutView = (extendBase)(Mn.LayoutView);  
+    this.Object = (extendBase)(Mn.Object);  
   },
 
   // Public Functions
@@ -94,16 +99,16 @@ module.exports = {
         start = _.difference(_.union(that.traffic.always_on, modules), state.started),
         stop = _.difference(that.modules, that.traffic.always_on, that.traffic.dont_stop, modules, state.stopped);
       
-      ole.log('Needed', modules);
-      ole.log('Already started', state.started);
-      ole.log('Already stopped', state.stopped);
+      that.log('Needed', modules);
+      that.log('Already started', state.started);
+      that.log('Already stopped', state.stopped);
 
-      ole.log('Stopping', stop);
+      that.log('Stopping', stop);
       _.each(stop, function(name) {
         that.stopModule(name);
       });
 
-      ole.log('Starting', start);
+      that.log('Starting', start);
       _.each(start, function(name) {
         that.startModule(name);
       });
