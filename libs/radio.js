@@ -34,7 +34,7 @@ module.exports = function(options) {
     // Protected Functions
     // --------------------------
 
-    initialize: function(owner, options) {
+    initialize: function(owner) {
       owner.normalizeMethods = Mn.normalizeMethods;
       this.owner = owner;
       this.channels = channels;

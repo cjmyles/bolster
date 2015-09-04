@@ -20,7 +20,7 @@ var config = {
   }
 }
 
-// var tannoy = require('../libs/tannoy');
+// var ole = require('../libs/ole');
 
 /**
  * The Model definition
@@ -35,7 +35,7 @@ module.exports = (function() {
    */
   var Model = function() {
     
-    // tannoy.addLogging(this);
+    // ole.addLogging(this);
 
     /**
      * Generate the URL

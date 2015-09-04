@@ -10,7 +10,9 @@ require('backbone-relational');
 require('backbone.radio');
 
 var utils = require('./libs/utils');
-var tannoy = require('./libs/tannoy');
+var ole = require('./libs/ole');
+
+var Radio = require('./libs/radio');
 
 var Model = require('./src/model');
 var Collection = require('./src/collection');
@@ -30,24 +32,10 @@ module.exports = {
   // Classes
   // --------------------------
 
-  // Model: (extendObject)(Model, Backbone.RelationalModel),
-  
+  // Model: (extendObject)(Model, Backbone.RelationalModel),  
   // Collection: (extendObject)(Collection, Backbone.Collection),
-
   // Module: (extendObject)(Module, Mn.Module),  
-
   // LayoutView: (extendBase)(Mn.LayoutView),  
-
-  // LayoutView: (function(Parent) {
-  //   var X = Base();
-  //   utils._extends(X, Parent);
-  //   return X;
-  // })(Mn.LayoutView),  
-
-  // ItemView: (function(Parent) {
-  //   utils._extends(Generic, Parent);
-  //   return Generic;
-  // })(Mn.ItemView),  
 
   // Attributes
   // --------------------------
@@ -58,13 +46,17 @@ module.exports = {
   // --------------------------
 
   initialize: function(options) {
+    var RadioClass = Radio(options);
+    var radio = this.radio = new RadioClass(this);
+    console.log(radio)
+
     var extend = function(Root, Factory) {
       utils._extends(Root, Factory);
       return Root;
     };
 
     var extendBase = function(Parent) {
-      var base = Base(options);
+      var base = Base({radio: radio});
       return extend(base, Parent);
     };
 
@@ -103,6 +95,8 @@ module.exports = {
     this.loadRegions(config.regions);
     this.loadModules(config.modules);    
 
+    this.app.radio = this.radio;
+
     return this.app;
   },
 
@@ -117,16 +111,16 @@ module.exports = {
         start = _.difference(_.union(that.traffic.always_on, modules), state.started),
         stop = _.difference(that.modules, that.traffic.always_on, that.traffic.dont_stop, modules, state.stopped);
       
-      tannoy.log('Needed', modules);
-      tannoy.log('Already started', state.started);
-      tannoy.log('Already stopped', state.stopped);
+      ole.log('Needed', modules);
+      ole.log('Already started', state.started);
+      ole.log('Already stopped', state.stopped);
 
-      tannoy.log('Stopping', stop);
+      ole.log('Stopping', stop);
       _.each(stop, function(name) {
         that.stopModule(name);
       });
 
-      tannoy.log('Starting', start);
+      ole.log('Starting', start);
       _.each(start, function(name) {
         that.startModule(name);
       });

@@ -6,8 +6,7 @@ var Mn = require('backbone.marionette');
 var _ = require('underscore');
 
 // var utils = require('../libs/utils');
-var logger = require('../libs/logger');
-var Radio = require('../libs/radio');
+var ole = require('../libs/ole');
 
 /**
  * The Module definition
@@ -16,11 +15,11 @@ var Radio = require('../libs/radio');
 module.exports = function(options) {
 
   var Base = function() {
-    logger.assimilate(this);
+    // Add logging capability
+    ole.assimilate(this);
 
-
-    var RadioClass = Radio(options);
-    this.radio = new RadioClass(this);
+    // Add radio communication and event listener capability
+    this.radio = options.radio;
     
     Base.__super__.constructor.apply(this, arguments);
   };

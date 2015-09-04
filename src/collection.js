@@ -33,7 +33,7 @@ var config = {
   
 }
 
-// var tannoy = require('../libs/tannoy');
+// var ole = require('../libs/ole');
 
 /**
  * The Collection definition
@@ -43,7 +43,7 @@ module.exports = (function() {
 
   var Collection = function() {
 
-    // tannoy.addLogging(this);
+    // ole.addLogging(this);
 
     /**
      * Generate the URL

@@ -4,7 +4,7 @@ var Mn = require('backbone.marionette');
 var _ = require('underscore');
 
 var utils = require('../libs/utils');
-// var tannoy = require('../libs/tannoy');
+// var ole = require('../libs/ole');
 
 /**
  * The Module definition
@@ -43,10 +43,6 @@ module.exports = (function() {
 
       this.radio.start();
 
-      // if (this.radioManager) {
-      //   this.radioManager.start();
-      // }
-
       this.started = true;
     }, this);
 
@@ -57,11 +53,8 @@ module.exports = (function() {
     this.on('before:stop', function() {
       this.announce('stop()');
 
-      // if (this.radioManager) {
-      //   this.radioManager.stop();
-      //   this.stopListening();
-      // }
-
+      this.radio.stop();
+      
       this.started = false;
     }, this);
 
