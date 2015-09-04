@@ -1,6 +1,6 @@
 'use strict';
 
-console.log('BOLSTER!')
+console.log('BOLSTER! Requires package.json and README cleanup + minification')
 
 var Backbone = require('backbone');
 Backbone.$ = jQuery;
@@ -55,7 +55,8 @@ module.exports = {
     this.Model = (extendObject)(Model, Backbone.RelationalModel);
     this.Collection = (extendObject)(Collection, Backbone.Collection);
     this.Module = (extendObject)(Module, Mn.Module);
-    this.LayoutView = (extendBase)(Mn.LayoutView);  
+    this.LayoutView = (extendBase)(Mn.LayoutView);
+    this.ItemView = (extendBase)(Mn.ItemView);
     this.Object = (extendBase)(Mn.Object);  
   },
 

@@ -29,7 +29,10 @@
     "url": ""
   },
   "dependencies": {
-    "underscore": ">=1.4.4",
-    "backbone": ">=1.0.0"
+    "backbone": "1.1.2",
+    "backbone-relational": "0.8.8",
+    "backbone.marionette": "2.2.0",
+    "backbone.radio": "0.6.0",
+    "underscore": "1.8.0"
   }
 }
