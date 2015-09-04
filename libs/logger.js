@@ -7,8 +7,6 @@ var useConsole = (function() {
   return window.console && typeof console.log === 'function';
 })();
 
-
-
 // function addLogging(object) {
 //   object.log = object.verbose ? console.log.bind(console) : _.noop;
 //   object.error = object.verbose ? console.error.bind(console) : _.noop;
@@ -19,15 +17,13 @@ var useConsole = (function() {
 
 module.exports = {
 
-  addLogging: function(object) {
-    object.log = object.verbose ? console.log.bind(console) : _.noop;
-    object.error = object.verbose ? console.error.bind(console) : _.noop;
-    object.announce = function(message) {
-      object.log(object.name + '.' + message);
-    }
-  },
-
   action: 'log',
+
+  // Protected Functions
+  // --------------------------
+
+  // Private Functions
+  // --------------------------
 
   console: function() {
     // log.history.push(arguments);
@@ -52,6 +48,17 @@ module.exports = {
       }
     }
   },
+
+  // Public Functions
+  // --------------------------
+
+  assimilate: function(object) {
+    object.log = object.verbose ? console.log.bind(console) : _.noop;
+    object.error = object.verbose ? console.error.bind(console) : _.noop;
+    object.announce = function(message) {
+      object.log(object.name + '.' + message);
+    }
+  },  
 
   log: function() {
     this.action = 'log';

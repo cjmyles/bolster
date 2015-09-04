@@ -18,21 +18,6 @@ var Module = require('./src/module');
 var Base = require('./src/base');
 
 
-var extend = function(Root, Factory) {
-  utils._extends(Root, Factory);
-  return Root;
-};
-
-var extendBase = function(Parent) {
-  var base = Base();
-  return extend(base, Parent);
-};
-
-var extendObject = function(Root, Parent) {
-  utils._extends(Root, extendBase(Parent));
-  return Root;
-}
-
 // var BrModule = (function(Parent) {
 //   var X = Base();
 //   utils._extends(X, Parent);
@@ -45,13 +30,13 @@ module.exports = {
   // Classes
   // --------------------------
 
-  Model: (extendObject)(Model, Backbone.RelationalModel),
+  // Model: (extendObject)(Model, Backbone.RelationalModel),
   
-  Collection: (extendObject)(Collection, Backbone.Collection),
+  // Collection: (extendObject)(Collection, Backbone.Collection),
 
-  Module: (extendObject)(Module, Mn.Module),  
+  // Module: (extendObject)(Module, Mn.Module),  
 
-  LayoutView: (extendBase)(Mn.LayoutView),  
+  // LayoutView: (extendBase)(Mn.LayoutView),  
 
   // LayoutView: (function(Parent) {
   //   var X = Base();
@@ -69,6 +54,31 @@ module.exports = {
 
   modules: [],
 
+  // Protected Functions
+  // --------------------------
+
+  initialize: function(options) {
+    var extend = function(Root, Factory) {
+      utils._extends(Root, Factory);
+      return Root;
+    };
+
+    var extendBase = function(Parent) {
+      var base = Base(options);
+      return extend(base, Parent);
+    };
+
+    var extendObject = function(Root, Parent) {
+      utils._extends(Root, extendBase(Parent));
+      return Root;
+    }
+
+    this.Model = (extendObject)(Model, Backbone.RelationalModel);
+    this.Collection = (extendObject)(Collection, Backbone.Collection);
+    this.Module = (extendObject)(Module, Mn.Module);
+    this.LayoutView = (extendBase)(Mn.LayoutView);  
+  },
+
   // Public Functions
   // --------------------------
 
@@ -76,14 +86,9 @@ module.exports = {
    * createApplication
    * Create a Backbone Marionette applicaiton with all the Bolster trimmings
    */
-  createApp: function(options) {
+  createApp: function(options) { 
     var config = options.config;
-
-    Backbone.Relational.store.addModelScope(options.modelScope);
-
     this.traffic = config.traffic;
-    // this.config = options.config;
-    // this.Router = options.Router;
 
     if (config.enableMarionetteInspector) {
       utils.enableMarionetteInspector();
@@ -92,10 +97,11 @@ module.exports = {
       utils.logVersion(config.name, options.version);
     }
 
+    Backbone.Relational.store.addModelScope(options.modelScope);
+
     this.app = new Mn.Application();
     this.loadRegions(config.regions);
-    this.loadModules(config.modules);
-    // this.initializeABCUser();
+    this.loadModules(config.modules);    
 
     return this.app;
   },
@@ -131,7 +137,7 @@ module.exports = {
 
   // Private Functions
   // --------------------------
-
+  
   /**
    * loadRegions
    * @desc Load regions into the app scope

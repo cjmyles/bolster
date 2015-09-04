@@ -1,10 +1,9 @@
 'use strict';
 
-// var Backbone = require('backbone');
+var Backbone = require('backbone');
 var Mn = require('backbone.marionette');
+require('backbone.radio');
 var _ = require('underscore');
-
-// var channels = require('libs/radio/channels');
 
 var ANTONYMNS = {
   'on': 'off',
@@ -13,18 +12,32 @@ var ANTONYMNS = {
 };
 
 /**
- * Event Manager
- * @type {Object}
+ * Radio
  */
- module.exports = function(channels) {
+var Channels = function(channels) {
+  var methods = {};
+
+  _.each(channels, function(id) {
+    methods[id] = Backbone.Radio.channel(id);
+  });
+
+  return methods;
+};
+
+module.exports = function(options) {
+
+  Backbone.Radio.DEBUG = options.debug;
+  var channels = new Channels(options.channels);
+
   return Mn.Object.extend({
 
     // Protected Functions
     // --------------------------
 
-    initialize: function(owner) {
+    initialize: function(owner, options) {
       owner.normalizeMethods = Mn.normalizeMethods;
       this.owner = owner;
+      this.channels = channels;
     },
 
     // Private Functions
@@ -35,6 +48,7 @@ var ANTONYMNS = {
 
     start: function() {
       var owner = this.owner,
+        channels = this.channels,
         events = owner.radioEvents;
 
       _.each(events, function(x, key) {
@@ -48,6 +62,7 @@ var ANTONYMNS = {
     stop: function(stopListening) {
       // console.log('manager:stop listening? ', stopListening);
       var owner = this.owner,
+        channels = this.channels,
         events = owner.radioEvents;
 
       _.each(events, function(x, key) {
@@ -64,4 +79,4 @@ var ANTONYMNS = {
     }
 
   });
-};
+}

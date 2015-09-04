@@ -33,7 +33,7 @@ var config = {
   
 }
 
-var tannoy = require('../libs/tannoy');
+// var tannoy = require('../libs/tannoy');
 
 /**
  * The Collection definition

@@ -1,26 +1,27 @@
 'use strict';
 
+var Backbone = require('backbone');
 var Mn = require('backbone.marionette');
+// require('backbone.radio');
 var _ = require('underscore');
 
 // var utils = require('../libs/utils');
-var tannoy = require('../libs/tannoy');
-var radio = require('../libs/radio');
+var logger = require('../libs/logger');
+var Radio = require('../libs/radio');
 
 /**
  * The Module definition
  * @return {Object} Module
  */
-module.exports = function(channels) {
+module.exports = function(options) {
 
   var Base = function() {
-    tannoy.addLogging(this);
+    logger.assimilate(this);
 
-    if (this.radioEvents) {
-      var Radio = radio(channels);
-      this.radioManager = new Radio(this);
-    }
 
+    var RadioClass = Radio(options);
+    this.radio = new RadioClass(this);
+    
     Base.__super__.constructor.apply(this, arguments);
   };
 
