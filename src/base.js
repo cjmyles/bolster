@@ -19,7 +19,7 @@ module.exports = function(options) {
     ole.assimilate(this);
 
     // Add radio communication and event listener capability
-    this.radio = options.radio;
+    this.radio = new options.Radio(this);
     
     Base.__super__.constructor.apply(this, arguments);
   };

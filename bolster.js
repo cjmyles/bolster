@@ -12,30 +12,14 @@ require('backbone.radio');
 var utils = require('./libs/utils');
 var ole = require('./libs/ole');
 
-var Radio = require('./libs/radio');
+var RadioTemplate = require('./libs/radio-template');
 
 var Model = require('./src/model');
 var Collection = require('./src/collection');
 var Module = require('./src/module');
 var Base = require('./src/base');
 
-
-// var BrModule = (function(Parent) {
-//   var X = Base();
-//   utils._extends(X, Parent);
-//   return X;
-// })(Mn.Module);  
-
-
 module.exports = {
-
-  // Classes
-  // --------------------------
-
-  // Model: (extendObject)(Model, Backbone.RelationalModel),  
-  // Collection: (extendObject)(Collection, Backbone.Collection),
-  // Module: (extendObject)(Module, Mn.Module),  
-  // LayoutView: (extendBase)(Mn.LayoutView),  
 
   // Attributes
   // --------------------------
@@ -46,17 +30,16 @@ module.exports = {
   // --------------------------
 
   initialize: function(options) {
-    var RadioClass = Radio(options);
-    var radio = this.radio = new RadioClass(this);
-    console.log(radio)
-
+    var Radio = RadioTemplate(options);
+    this.radio = new Radio();
+    
     var extend = function(Root, Factory) {
       utils._extends(Root, Factory);
       return Root;
     };
 
     var extendBase = function(Parent) {
-      var base = Base({radio: radio});
+      var base = Base({ Radio: Radio });
       return extend(base, Parent);
     };
 

@@ -31,13 +31,16 @@ module.exports = function(options) {
 
   return Mn.Object.extend({
 
+    channels: channels,
+
     // Protected Functions
     // --------------------------
 
     initialize: function(owner) {
-      owner.normalizeMethods = Mn.normalizeMethods;
-      this.owner = owner;
-      this.channels = channels;
+      if (owner) {
+        owner.normalizeMethods = Mn.normalizeMethods;
+        this.owner = owner;
+      }      
     },
 
     // Private Functions
