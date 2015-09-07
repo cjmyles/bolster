@@ -58,6 +58,10 @@ module.exports = {
     this.LayoutView = (extendBase)(Mn.LayoutView);
     this.ItemView = (extendBase)(Mn.ItemView);
     this.Object = (extendBase)(Mn.Object);  
+
+    if (options.Model) {
+      this.Model = (extendObject)(options.Model, this.Model);
+    }
   },
 
   // Public Functions
