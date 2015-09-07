@@ -54,6 +54,7 @@ module.exports = {
 
     this.Model = (extendObject)(Model, Backbone.RelationalModel);
     this.Collection = (extendObject)(Collection, Backbone.Collection);
+
     this.Module = (extendObject)(Module, Mn.Module);
     this.LayoutView = (extendBase)(Mn.LayoutView);
     this.ItemView = (extendBase)(Mn.ItemView);
@@ -61,6 +62,10 @@ module.exports = {
 
     if (options.Model) {
       this.Model = (extendObject)(options.Model, this.Model);
+    }
+    // For some reason extending the Collection twice causes issues
+    if (options.Collection) {
+      this.Collection = (extendObject)(options.Collection, Backbone.Collection);
     }
   },
 

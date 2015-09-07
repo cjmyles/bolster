@@ -55,9 +55,9 @@ module.exports = {
   assimilate: function(object) {
     object.log = object.verbose ? console.log.bind(console) : _.noop;
     object.error = object.verbose ? console.error.bind(console) : _.noop;
-    object.announce = function(message) {
+    object.announce = object.verbose ? function(message) {
       object.log(object.name + '.' + message);
-    }
+    } : _.noop;
   },  
 
   log: function() {
