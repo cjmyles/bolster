@@ -1,42 +1,12 @@
-Radio
-=====
+Bolster
+===
 
-The libs/radio/index object provides an easy mechanism to get a handle on any pre-defined radio channel and utilises [Backbone Radio](https://github.com/marionettejs/backbone.radio).
+Creating robust Backbone Marionette Applications integrated with Backbone Relational that utilise APIs is no simple feat, and can be fraught with a magnitude of minor issues. After creating several applications I realised there was a commonality in my applications that could and should be abstracted to make the process easier, as well as provide easy-to-access utility functions like logging. Bolster therefore helps to manage the following tasks in creating and running a robust Backbone Marionette Application:
 
-Listeners
----------
-
-There are three types of handlers that can be attached to a channel:
-
-  channel.on('some:event', function() {
-    console.log('An event has happened!');
-  });
-
-  channel.comply('some:action', function() {
-    console.log('I was told to execute some action');
-  });
-
-  channel.reply('some:request', 'food is good');
-
-Triggers
----------
-
-There are three types of triggers that can be fired on a channel:
-
-  channel.trigger('some:event');
-
-  channel.command('some:command');
-
-  var response = channel.request('some:request');
-
-Mapping
--------
-
-The trigger:handler mapping is as follows:
-
-  trigger -> on
-
-  command -> comply
-
-  request -> reply 
-
+* Initialise and extend core Backbone Relational entities
+* Initialise and extend core Backbone Marionette entities
+* Create the desired Backbone Radio channels and event listeners
+* Create a Backbone Marionette Application with desired Regions and Modules
+* Add Backbone Relational Models & Collections to the application scope
+* Manage the process of starting and stopping Backbone Marionette Modules depending on the Backbone Marionette Router
+* Provide an easy to use logging facility that is browser aware and can be enabled/disabled per Backbone Relational or Backbone Marionette entity
