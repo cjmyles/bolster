@@ -1,18 +1,16 @@
-/* global jQuery, $, ABC */
+/* global jQuery, $ */
 /*jshint unused: false */
 
 'use strict';
 
 /**
- * app
- * @module app
- * @desc Marionette app definition with region initialisation
+ * Bolster
+ * @library Bolster
+ * @desc Backbone Marionette initialisation with regions & modules loader, with Backbone Relational integration and more
  * @requires backbone
  * @requires backbone.marionette
+ * @requires backbone-relational
  * @requires backbone.radio
- * @requires radio
- * @requires user
- * @requires api
  */
 
 // Backbone
@@ -28,7 +26,6 @@ var Architecture = require('./src/architecture.js');
 var Relational = require('backbone-relational');
 Backbone.Relational.store.addModelScope(require('core/api/scope'));
 // Backbone Radio
-// @todo: does this come free with more recent versions of Backbone?
 var BackboneRadio = require('backbone.radio');
 
 // Core utilities
@@ -36,7 +33,9 @@ var utils = require('./libs/utils');
 // Custom radio channels
 var radio = require('libs/radio');
 
-
+/**
+ * 
+ */
 module.exports = Mn.Object.extend({
 
   initialize: function(options) {

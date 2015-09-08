@@ -1,41 +1,108 @@
+/* global jQuery */
+
 'use strict';
+
+/**
+ * Bolster
+ * @library Bolster
+ * @desc Backbone Marionette initialisation with regions & modules loader, with Backbone Relational integration and more
+ * @requires backbone
+ * @requires backbone.marionette
+ * @requires backbone-relational
+ * @requires backbone.radio
+ */
 
 console.log('BOLSTER! Requires package.json and README cleanup + minification')
 
+// Backbone
 var Backbone = require('backbone');
 Backbone.$ = jQuery;
+// Underscore
 var _ = require('underscore');
+// Backbone Marionette
 var Mn = require('backbone.marionette');
+// Backbone Relational
 require('backbone-relational');
+// Backbone Radio
 require('backbone.radio');
 
+// Core utilities
 var utils = require('./libs/utils');
+// Logging (like the Spanish Olé! Also the "ole" in "console")
 var ole = require('./libs/ole');
 
-var RadioTemplate = require('./libs/radio-template');
+// Custom Backbone Radio functionality
+// var RadioTemplate = require('./libs/radio-template');
 
+// Custom entity definitions
 var Model = require('./src/model');
 var Collection = require('./src/collection');
 var Module = require('./src/module');
 var Base = require('./src/base');
 
+
+
+var Radio = {
+
+  // Attributes
+  // --------------------------
+  
+  // Keep a local copy of the created channels
+  // channels: {},
+
+  /**
+   * initialize
+   * @description Initialize Backbone.Radio
+   * @param  {Object} options Initialization parameters, including debug parameter and channel names
+   */
+  initialize: function(options) {
+    // Specify debug
+    Backbone.Radio.DEBUG = options.debug;
+
+    // Create the required channels
+    _.each(options.channels, function(id) {
+      Backbone.Radio.channel(id);
+    });
+  }
+
+}
+
+
+
+
+
+/**
+ * 
+ * @type {Object}
+ */
 module.exports = {
 
   // Attributes
   // --------------------------
 
+  // Turn on/off Olé logging 
   verbose: false,
 
+  // Keep a local list of app module names
   modules: [],
 
   // Protected Functions
   // --------------------------
 
+  /**
+   * initialize
+   * @description Initialize Bolster by enabling logging and setting up the core entities
+   * @param  {Object} options Initialization parameters, including custom entity definitions
+   */
   initialize: function(options) {
+    // Add logging cability to Bolster itself (how ironic)!
     ole.assimilate(this);
 
-    var Radio = RadioTemplate(options);
-    this.radio = new Radio();
+    // var Radio = RadioTemplate(options);
+    // this.radio = new Radio();
+    
+    // Radio.initialize(options);
+    // this.Radio = Backbone.Radio;
     
     var extend = function(Root, Factory) {
       utils._extends(Root, Factory);
@@ -43,13 +110,12 @@ module.exports = {
     };
 
     var extendBase = function(Parent) {
-      var base = Base({ Radio: Radio });
-      return extend(base, Parent);
+      // var base = Base();
+      return extend(Base(), Parent);
     };
 
     var extendObject = function(Root, Parent) {
-      utils._extends(Root, extendBase(Parent));
-      return Root;
+      return extend(Root, extendBase(Parent));
     }
 
     this.Model = (extendObject)(Model, Backbone.RelationalModel);

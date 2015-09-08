@@ -14,72 +14,64 @@ var ANTONYMNS = {
 /**
  * Radio
  */
-var Channels = function(channels) {
-  var methods = {};
+// var Channels = function(channels) {
+//   var methods = {};
 
-  _.each(channels, function(id) {
-    methods[id] = Backbone.Radio.channel(id);
-  });
+//   _.each(channels, function(id) {
+//     methods[id] = Backbone.Radio.channel(id);
+//   });
 
-  return methods;
-};
+//   return methods;
+// };
 
-module.exports = function(options) {
+module.exports = Mn.Object.extend({
 
-  Backbone.Radio.DEBUG = options.debug;
-  var channels = new Channels(options.channels);
+  // channels: channels,
 
-  return Mn.Object.extend({
+  // Protected Functions
+  // --------------------------
 
-    channels: channels,
+  initialize: function(owner) {
+    if (owner) {
+      owner.normalizeMethods = Mn.normalizeMethods;
+      this.owner = owner;
+    }      
+  },
 
-    // Protected Functions
-    // --------------------------
+  // Private Functions
+  // --------------------------
 
-    initialize: function(owner) {
-      if (owner) {
-        owner.normalizeMethods = Mn.normalizeMethods;
-        this.owner = owner;
-      }      
-    },
+  // Public Functions
+  // --------------------------
 
-    // Private Functions
-    // --------------------------
+  start: function() {
+    var owner = this.owner,
+      events = owner.radioEvents;
 
-    // Public Functions
-    // --------------------------
-
-    start: function() {
-      var owner = this.owner,
-        channels = this.channels,
-        events = owner.radioEvents;
-
-      _.each(events, function(x, key) {
-        _.each(events[key], function(y, command) {
-          // console.log('radio[' + key + '][' + command + ']', y);
-          channels[key][command](owner.normalizeMethods(y), owner);
-        });
+    _.each(events, function(x, key) {
+      _.each(events[key], function(y, command) {
+        // console.log('radio[' + key + '][' + command + ']', y);
+        Backbone.Radio.channel('key')[command](owner.normalizeMethods(y), owner);
       });
-    },
+    });
+  },
 
-    stop: function(stopListening) {
-      // console.log('manager:stop listening? ', stopListening);
-      var owner = this.owner,
-        channels = this.channels,
-        events = owner.radioEvents;
+  stop: function(stopListening) {
+    // console.log('manager:stop listening? ', stopListening);
+    var owner = this.owner,
+      events = owner.radioEvents;
 
-      _.each(events, function(x, key) {
-        _.each(events[key], function(y, command) {
-          command = ANTONYMNS[command];
-          channels[key][command](owner.normalizeMethods(y), owner);
-        });
+    _.each(events, function(x, key) {
+      _.each(events[key], function(y, command) {
+        command = ANTONYMNS[command];
+        Backbone.Radio.channel('key')[command](owner.normalizeMethods(y), owner);
       });
+    });
 
-      if (stopListening) {
-        // console.log(owner);
-        owner.stopListening();
-      }
+    if (stopListening) {
+      // console.log(owner);
+      owner.stopListening();
     }
+  }
 
-  });
-}
+});

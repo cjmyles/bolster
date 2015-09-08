@@ -41,7 +41,7 @@ module.exports = (function() {
     this.on('before:start', function() {
       this.announce('start()');
 
-      this.radio.start();
+      // this.radio.start();
 
       this.started = true;
     }, this);
@@ -53,7 +53,7 @@ module.exports = (function() {
     this.on('before:stop', function() {
       this.announce('stop()');
 
-      this.radio.stop();
+      // this.radio.stop();
       
       this.started = false;
     }, this);
