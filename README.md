@@ -1,6 +1,9 @@
 Bolster
 ===
 
+**DRAFT**
+Please note: this library is currently a work in progress
+
 Creating robust Backbone Marionette Applications integrated with Backbone Relational that utilise APIs is no simple feat, and can be fraught with a magnitude of minor issues. After creating several applications I realised there was a commonality in my applications that could and should be abstracted to make the process easier, as well as provide easy-to-access utility functions like logging. Bolster therefore helps to manage the following tasks in creating and running a robust Backbone Marionette Application:
 
 * Initialise and extend core Backbone Relational entities
