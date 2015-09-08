@@ -1,55 +1,83 @@
+/* global jQuery */
+
 'use strict';
+ 
+/**
+ * Bolster
+ * @library Bolster
+ * @desc Backbone Marionette initialisation with regions & modules loader, with Backbone Relational integration and more
+ * @requires backbone
+ * @requires backbone.marionette
+ * @requires backbone-relational
+ * @requires backbone.radio
+ */
 
 console.log('BOLSTER! Requires package.json and README cleanup + minification')
-
+ 
+// Backbone
 var Backbone = require('backbone');
 Backbone.$ = jQuery;
+// Underscore
 var _ = require('underscore');
+// Backbone Marionette
 var Mn = require('backbone.marionette');
+// Backbone Relational
 require('backbone-relational');
+// Backbone Radio
 require('backbone.radio');
-
+ 
+// Core utilities
 var utils = require('./libs/utils');
+// Logging (like the Spanish Olé! Also the "ole" in "console")
 var ole = require('./libs/ole');
-
-var RadioTemplate = require('./libs/radio-template');
-
+  
+// Custom entity definitions
 var Model = require('./src/model');
 var Collection = require('./src/collection');
 var Module = require('./src/module');
 var Base = require('./src/base');
+
 
 module.exports = {
 
   // Attributes
   // --------------------------
 
+  // Turn on/off Olé logging 
   verbose: false,
 
+  // Keep a local copy of the created channels
+  radio: {},
+
+  // Keep a local list of app module names
   modules: [],
 
   // Protected Functions
   // --------------------------
-
+  
+  /**
+   * initialize
+   * @description Initialize Bolster by enabling logging and setting up the core entities
+   * @param  {Object} options Initialization parameters, including custom entity definitions
+   */
   initialize: function(options) {
+    // Add logging cability to Bolster itself (how ironic)!
     ole.assimilate(this);
 
-    var Radio = RadioTemplate(options);
-    this.radio = new Radio();
-    
+    this.initializeRadio(options);
+
     var extend = function(Root, Factory) {
       utils._extends(Root, Factory);
       return Root;
     };
 
     var extendBase = function(Parent) {
-      var base = Base({ Radio: Radio });
+      var base = Base();
       return extend(base, Parent);
     };
 
     var extendObject = function(Root, Parent) {
-      utils._extends(Root, extendBase(Parent));
-      return Root;
+      return extend(Root, extendBase(Parent));
     }
 
     this.Model = (extendObject)(Model, Backbone.RelationalModel);
@@ -93,7 +121,7 @@ module.exports = {
     this.loadRegions(config.regions);
     this.loadModules(config.modules);    
 
-    this.app.radio = this.radio;
+    // this.app.radio = this.radio;
 
     return this.app;
   },
@@ -130,6 +158,16 @@ module.exports = {
   // Private Functions
   // --------------------------
   
+  initializeRadio: function(options) {
+    // Set the development mode
+    Backbone.Radio.DEBUG = options.debug;
+
+    // Create the required radio channels
+    _.each(options.channels, function(id) {
+      this.radio[id] = Backbone.Radio.channel(id);
+    }, this);
+  },
+
   /**
    * loadRegions
    * @desc Load regions into the app scope

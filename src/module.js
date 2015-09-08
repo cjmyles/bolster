@@ -41,7 +41,8 @@ module.exports = (function() {
     this.on('before:start', function() {
       this.announce('start()');
 
-      this.radio.start();
+      // Start the radio manager (inherited from Base)
+      this.radioManager.start();
 
       this.started = true;
     }, this);
@@ -53,7 +54,8 @@ module.exports = (function() {
     this.on('before:stop', function() {
       this.announce('stop()');
 
-      this.radio.stop();
+      // Stop the radio manager (inherited from Base)
+      this.radioManager.stop();
       
       this.started = false;
     }, this);
