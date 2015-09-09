@@ -64,6 +64,10 @@ module.exports = {
     // Add logging cability to Bolster itself (how ironic)!
     ole.assimilate(this);
 
+    if (options.enableCookieAuth) {
+      utils.enableCookieAuth();
+    }
+
     this.initializeRadio(options);
 
     var extend = function(Root, Factory) {
