@@ -63,6 +63,10 @@ module.exports = {
 
   logVersion: function(name, version) {
     ole.log('%c' + name + ' version ' + version, 'color:blue');
+  },
+
+  redirect: function(route) {
+    Backbone.history.navigate(route, { trigger: true });
   }
 
 };

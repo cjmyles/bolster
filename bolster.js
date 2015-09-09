@@ -159,6 +159,8 @@ module.exports = {
     };
   },
 
+  redirect: utils.redirect,
+
   // Private Functions
   // --------------------------
   
