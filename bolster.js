@@ -5,14 +5,15 @@
 /**
  * Bolster
  * @library Bolster
- * @desc Backbone Marionette initialisation with regions & modules loader, with Backbone Relational integration and more
+ * @desc Easily create and manage Backbone Marionette applications with Backbone Relational & Backbone Radio integration, module runner and more
  * @requires backbone
+ * @requires jQuery
  * @requires backbone.marionette
  * @requires backbone-relational
  * @requires backbone.radio
  */
 
-console.log('BOLSTER! Requires package.json and README cleanup + minification')
+console.log('BOLSTER! README cleanup + minification')
  
 // Backbone
 var Backbone = require('backbone');
@@ -84,12 +85,16 @@ module.exports = {
       return extend(Root, extendBase(Parent));
     }
 
+    // Backbone Relational entities
     this.Model = (extendObject)(Model, Backbone.RelationalModel);
     this.Collection = options.Collection ? (extendObject)(options.Collection, Backbone.Collection) : (extendBase)(Backbone.Collection);
 
-    this.Module = (extendObject)(Module, Mn.Module);
-    this.LayoutView = (extendBase)(Mn.LayoutView);
+    // Backbone Marionette entities
+    this.CollectionView = (extendBase)(Mn.CollectionView);
+    this.CompositeView = (extendBase)(Mn.CompositeView);
     this.ItemView = (extendBase)(Mn.ItemView);
+    this.LayoutView = (extendBase)(Mn.LayoutView);
+    this.Module = (extendObject)(Module, Mn.Module);
     this.Object = (extendBase)(Mn.Object);  
 
     if (options.Model) {
