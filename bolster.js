@@ -13,8 +13,6 @@
  * @requires backbone.radio
  */
 
-console.log('BOLSTER! README cleanup + minification')
- 
 // Backbone
 var Backbone = require('backbone');
 Backbone.$ = jQuery;
@@ -31,6 +29,8 @@ require('backbone.radio');
 var utils = require('./libs/utils');
 // Logging (like the Spanish Olé! Also the "ole" in "console")
 var ole = require('./libs/ole');
+// Url helper
+var url = require('./libs/url');
   
 // Custom entity definitions
 var Model = require('./src/model');
@@ -106,6 +106,8 @@ module.exports = {
     // }
   },
 
+  url: url,
+
   // Public Functions
   // --------------------------
 
@@ -162,9 +164,7 @@ module.exports = {
 
       route.apply(that, arguments);
     };
-  },
-
-  redirect: utils.redirect,
+  },  
 
   // Private Functions
   // --------------------------
