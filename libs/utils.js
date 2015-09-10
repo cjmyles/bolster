@@ -8,6 +8,9 @@ var ole = require('./ole');
 
 module.exports = {
 
+  /**
+   * Provide an easy way to extend classes
+   */
   _extends: function(child, parent) {
     var __hasProp = {}.hasOwnProperty;
 
@@ -28,11 +31,10 @@ module.exports = {
     return child;
   },
 
-  enableCookieAuth: function() {
-    /**
-     * Enable cookie authentication
-     * @todo Move this
-     */
+  /**
+   * Enable cookie authentication
+   */
+  enableCookieAuth: function() {    
     // (function() {
       var proxiedSync = Backbone.sync;
 
