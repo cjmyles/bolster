@@ -111,12 +111,15 @@ module.exports = {
   // Public Functions
   // --------------------------
 
+  addModelScope: function(scope) {
+    Backbone.Relational.store.addModelScope(scope);
+  },
+
   /**
    * createApplication
    * Create a Backbone Marionette applicaiton with all the Bolster trimmings
    */
-  createApp: function(options) { 
-    var config = options.config;
+  createApp: function(config) { 
     this.traffic = config.traffic;
 
     if (config.enableMarionetteInspector) {
@@ -125,8 +128,6 @@ module.exports = {
     if (config.logVersion) {
       utils.logVersion(config.name, options.version);
     }
-
-    Backbone.Relational.store.addModelScope(options.modelScope);
 
     this.app = new Mn.Application();
     this.loadRegions(config.regions);
