@@ -31,6 +31,8 @@ var utils = require('./libs/utils');
 var ole = require('./libs/ole');
 // Url helper
 var url = require('./libs/url');
+// Ui helper
+var ui = require('./libs/ui');
   
 // Custom entity definitions
 var Model = require('./src/model');
@@ -107,6 +109,8 @@ module.exports = {
   },
 
   url: url,
+
+  ui: ui,
 
   // Public Functions
   // --------------------------

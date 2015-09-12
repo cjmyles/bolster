@@ -1,8 +1,16 @@
+# 2.1.1 (Sep 12, 2015)
+
+## New features
+
+- Added ui object
+
+
 # 2.1.0 (Sep 11, 2015)
  
 ## Breaking changes
  
 - Changed the order of initialisation and app creation to prevent Backbone Relational issues
+
 
 # 2.0.0 (Sep 11, 2015)
  
