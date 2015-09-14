@@ -1,3 +1,10 @@
+# 2.1.2 (Sep 14, 2015)
+
+## New features
+
+- Added Backbone Relational relationship types for ease of use
+
+
 # 2.1.1 (Sep 12, 2015)
 
 ## New features
