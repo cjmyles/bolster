@@ -55,6 +55,19 @@ module.exports = {
   // Keep a local list of app module names
   modules: [],
 
+  // Inherited objects
+  // --------------------------
+
+  // Backbone Relational relationship types
+  HasOne: Backbone.HasOne,
+  HasMany: Backbone.HasMany,
+
+  // The url helper
+  url: url,
+
+  // The ui helper
+  ui: ui,
+
   // Protected Functions
   // --------------------------
   
@@ -107,10 +120,6 @@ module.exports = {
     //   this.Collection = (extendObject)(options.Collection, Backbone.Collection);
     // }
   },
-
-  url: url,
-
-  ui: ui,
 
   // Public Functions
   // --------------------------
