@@ -141,6 +141,9 @@ module.exports = {
     if (config.logVersion) {
       utils.logVersion(config.name, options.version);
     }
+    if (config.resetWindowOnRoute) {
+      ui.resetWindowOnRoute();      
+    }
 
     this.app = new Mn.Application();
     this.loadRegions(config.regions);

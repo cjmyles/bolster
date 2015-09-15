@@ -1,3 +1,10 @@
+# 2.1.3 (Sep 14, 2015)
+
+## New features
+
+- Added reset window on route function
+
+
 # 2.1.2 (Sep 14, 2015)
 
 ## New features
