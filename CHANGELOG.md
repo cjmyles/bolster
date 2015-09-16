@@ -1,3 +1,10 @@
+# 2.1.4 (Sep 16, 2015)
+
+## New features
+
+- Updated Readme
+
+
 # 2.1.3 (Sep 14, 2015)
 
 ## New features
