@@ -62,6 +62,9 @@ module.exports = {
   HasOne: Backbone.HasOne,
   HasMany: Backbone.HasMany,
 
+  // Backbone History
+  history: Backbone.history,
+
   // The url helper
   url: url,
 
