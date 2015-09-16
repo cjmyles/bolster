@@ -12,7 +12,7 @@ Bolster helps to manage the following tasks in creating and running robust Backb
 
 Install using npm:
 
-```
+```javascript
 $ npm install bolster
 ```
 
@@ -22,19 +22,19 @@ $ npm install bolster
 
 Import the library:
 
-```
+```javascript
 var Br = require('bolster');
 ```
 
 Define your Backbone Radio channels:
 
-```
+```javascript
 var channels = ['user'];
 ```
 
 Initialize Bolster:
 
-```
+```javascript
 Br.initialize({
   channels: channels, // Your Backbone Radio channels
   debug: true, // Used to turn on debug mode
@@ -45,7 +45,7 @@ Br.initialize({
 
 Define your Backbone Relational Models and Collections Scope (more on the specifics of Models & Collections later):
 
-```
+```javascript
 var scope = {
   // Models
   User: require('./models/user'),
@@ -58,13 +58,13 @@ var scope = {
 
 Add your Backbone Relational Models and Collections to the Backbone Relational Model Scope:
 
-```
+```javascript
 Br.addModelScope(scope);
 ```
 
 Create your application config (more on the specifics of Regions & Modules later):
 
-```
+```javascript
 var config = {
   resetWindowOnRoute: true, // Always scroll to the top of the page on-route
 
@@ -95,6 +95,6 @@ var config = {
 
 Create your application:
 
-```
+```javascript
 var app = Br.createApp(config);
 ```
