@@ -1,7 +1,7 @@
 Bolster
 ===
 
-***Please note**: This document is currently in DRAFT status and requires further work*
+*This document is currently in DRAFT status and requires further work*
 
 Do you yearn to create Backbone Marionette applications that have Backbone Relational & Backbone Radio integration, access to a host of useful helper functions including logging, and can be created from just a few lines of code? Well Bolster is the library for you! 
 
