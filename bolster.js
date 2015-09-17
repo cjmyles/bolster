@@ -5,15 +5,14 @@
 /**
  * Bolster
  * @library Bolster
- * @desc Backbone Marionette initialisation with regions & modules loader, with Backbone Relational integration and more
+ * @desc Easily create and manage Backbone Marionette applications with Backbone Relational & Backbone Radio integration, module runner and more
  * @requires backbone
+ * @requires jQuery
  * @requires backbone.marionette
  * @requires backbone-relational
  * @requires backbone.radio
  */
 
-console.log('BOLSTER! Requires package.json and README cleanup + minification')
- 
 // Backbone
 var Backbone = require('backbone');
 Backbone.$ = jQuery;
@@ -30,6 +29,10 @@ require('backbone.radio');
 var utils = require('./libs/utils');
 // Logging (like the Spanish Olé! Also the "ole" in "console")
 var ole = require('./libs/ole');
+// Url helper
+var url = require('./libs/url');
+// Ui helper
+var ui = require('./libs/ui');
   
 // Custom entity definitions
 var Model = require('./src/model');
@@ -52,6 +55,22 @@ module.exports = {
   // Keep a local list of app module names
   modules: [],
 
+  // Inherited objects
+  // --------------------------
+
+  // Backbone Relational relationship types
+  HasOne: Backbone.HasOne,
+  HasMany: Backbone.HasMany,
+
+  // Backbone History
+  history: Backbone.history,
+
+  // The url helper
+  url: url,
+
+  // The ui helper
+  ui: ui,
+
   // Protected Functions
   // --------------------------
   
@@ -63,6 +82,10 @@ module.exports = {
   initialize: function(options) {
     // Add logging cability to Bolster itself (how ironic)!
     ole.assimilate(this);
+
+    if (options.enableCookieAuth) {
+      utils.enableCookieAuth();
+    }
 
     this.initializeRadio(options);
 
@@ -80,12 +103,16 @@ module.exports = {
       return extend(Root, extendBase(Parent));
     }
 
+    // Backbone Relational entities
     this.Model = (extendObject)(Model, Backbone.RelationalModel);
     this.Collection = options.Collection ? (extendObject)(options.Collection, Backbone.Collection) : (extendBase)(Backbone.Collection);
 
-    this.Module = (extendObject)(Module, Mn.Module);
-    this.LayoutView = (extendBase)(Mn.LayoutView);
+    // Backbone Marionette entities
+    this.CollectionView = (extendBase)(Mn.CollectionView);
+    this.CompositeView = (extendBase)(Mn.CompositeView);
     this.ItemView = (extendBase)(Mn.ItemView);
+    this.LayoutView = (extendBase)(Mn.LayoutView);
+    this.Module = (extendObject)(Module, Mn.Module);
     this.Object = (extendBase)(Mn.Object);  
 
     if (options.Model) {
@@ -100,12 +127,15 @@ module.exports = {
   // Public Functions
   // --------------------------
 
+  addModelScope: function(scope) {
+    Backbone.Relational.store.addModelScope(scope);
+  },
+
   /**
    * createApplication
    * Create a Backbone Marionette applicaiton with all the Bolster trimmings
    */
-  createApp: function(options) { 
-    var config = options.config;
+  createApp: function(config) { 
     this.traffic = config.traffic;
 
     if (config.enableMarionetteInspector) {
@@ -114,8 +144,9 @@ module.exports = {
     if (config.logVersion) {
       utils.logVersion(config.name, options.version);
     }
-
-    Backbone.Relational.store.addModelScope(options.modelScope);
+    if (config.resetWindowOnRoute) {
+      ui.resetWindowOnRoute();      
+    }
 
     this.app = new Mn.Application();
     this.loadRegions(config.regions);
@@ -153,7 +184,7 @@ module.exports = {
 
       route.apply(that, arguments);
     };
-  },
+  },  
 
   // Private Functions
   // --------------------------
