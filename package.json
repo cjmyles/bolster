@@ -1,7 +1,9 @@
 {
   "name": "bolster",
-  "version": "2.1.6",
   "description": "Easily create and manage Backbone Marionette applications with Backbone Relational & Backbone Radio integration, module runner and more.",
+  "homepage": "https://github.com/cjmyles/bolster",
+  "version": "2.1.6",
+  "main": "bolster.js",  
   "keywords": [
     "backbone",
     "plugin",
@@ -17,19 +19,24 @@
     "client",
     "browser"
   ],
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/cjmyles/bolster/blob/master/LICENSE"
+    }
+  ],
+  "author": {
+    "name": "Craig Myles <cr@igmyles.com>"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/cjmyles"
-  },
-  "main": "bolster.js",  
+  },  
   "dependencies": {
     "backbone": "1.1.2",
     "backbone-relational": "0.8.8",
     "backbone.marionette": "2.2.0",
     "backbone.radio": "0.6.0",
     "underscore": "1.8.0"
-  },
-  "author": {
-    "name": "Craig Myles <cr@igmyles.com>"
-  }
+  }  
 }
