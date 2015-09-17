@@ -1,3 +1,10 @@
+# 2.1.6 (Sep 17, 2015)
+
+## New features
+
+- Proxy to Backbone.history for ease of use
+
+
 # 2.1.5 (Sep 16, 2015)
 
 ## New features
