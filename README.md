@@ -36,20 +36,20 @@ var Br = require('bolster');
 
 Bolster is an interface to - not a replacement for - Backbone Marionette, Backbone Relational and Backbone Radio. Bolster simplifies the initialization of these libraries and the creation of Backbone Marionette applications.
 
-## Bolster Entities
+## Bolster Classes
 
-Bolster currently extends the following Backbone Marionette entities:
+Bolster currently extends the following Backbone Marionette classes:
 
 * Object
 * Module
 * LayoutView
 * ItemView
 
-By referencing the Bolster version, you then have access to a logging mechanism as well as a radio event controller.
+By referencing the Bolster version, instantiated objects have access to a logging mechanism as well as a radio event controller.
 
 ### Logging
 
-Each Bolster entity has access to a ```log()``` method. This method is bound to console.log, but only outputs to the console if 1) the entity's ```verbose``` option is set to ```true```, and 2) the browser supports the console.log method. The ```log()``` method is particularly helpful for adding persistent log statements to your code, and enabling/disabling their usage from one point.
+Each instantiated object has access to a ```log()``` method. This method is bound to console.log, but only outputs to the console if 1) the ```verbose``` option is set to ```true```, and 2) the browser supports the console.log method. The ```log()``` method is particularly helpful for adding persistent log statements to your code, and enabling/disabling their usage from one point.
 
 Let's use the Backbone Marionette Object as an example:
 
@@ -61,7 +61,45 @@ var O = Br.Object.extend({
     this.log('initialize()');
   }
 });
+
 var o = new O(); // --> initialize()
+```
+
+### Radio Events
+
+Setting up and removing radio event listeners is a common application task and Bolster takes care of this for you. Once a ```radioEvents``` option is added to your class, the instantiated object has access to a ```radioManager``` object which can be started and stopped. Any radio events triggered matching the definition in your ```radioEvents``` object will call the associated method, similar to Backbone Marionette's ```modelEvents``` object:
+
+```javascript
+var O = Br.Object.extend({
+  verbose: true,
+
+  radioEvents: {
+    auth: {
+      on: {
+        'userLoggedIn': 'onUserLoggedIn'
+      }
+    }
+  },
+
+  initialize: function() {
+    this.radioManager.start();
+  },
+
+  onUserLoggedIn: function() {
+    this.log('onUserLoggedIn()');
+  },
+
+  onBeforeDestroy: function() {
+    this.radioManager.stop();
+  }
+});
+
+var o = new O();
+Br.radio.auth.trigger('userLoggedIn'); // --> onUserLoggedIn()
+o.destroy();
+```
+
+Note: method names are normalized using Backbone Marionette's ```normalizeMethods``` function.
 
 ## Getting Started
 
@@ -75,10 +113,6 @@ In order to create your application Bolster assumes the following:
 Before you initialize Bolster and create your application, let's go through each of these prerequisites.
 
 Note: The examples referenced in this document assume that your application is divided into separate files, referenced by ```require``` statements.
-
-
-
-
 
 ### Backbone Radio
 
@@ -124,7 +158,7 @@ module.exports = {
 
 ### Backbone Marionette Modules
 
-Bolster Modules extend Backbone Marionette Modules. As you'll find with all objects extended through Bolster, Bolster Modules have access to a logging facility as well as radio events.
+Bolster Modules extend Backbone Marionette Modules. 
 
 Now create your module(s):
 
