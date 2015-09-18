@@ -1,3 +1,10 @@
+# 2.1.7 (Sep 18, 2015)
+
+## New features
+
+- Proxy to Backbone.Radio for ease of use
+
+
 # 2.1.6 (Sep 17, 2015)
 
 ## New features
