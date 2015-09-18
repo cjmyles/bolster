@@ -61,6 +61,9 @@ module.exports = {
   // Backbone Relational relationship types
   HasOne: Backbone.HasOne,
   HasMany: Backbone.HasMany,
+  
+  // Backbone Radio
+  Radio: Backbone.Radio,
 
   // Backbone History
   history: Backbone.history,
