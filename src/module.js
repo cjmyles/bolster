@@ -39,7 +39,7 @@ module.exports = (function() {
      * 
      */
     this.on('before:start', function() {
-      this.announce('start()');
+      // this.announce('start()');
 
       // Start the radio manager (inherited from Base)
       this.radioManager.start();
@@ -52,7 +52,7 @@ module.exports = (function() {
      * 
      */
     this.on('before:stop', function() {
-      this.announce('stop()');
+      // this.announce('stop()');
 
       // Stop the radio manager (inherited from Base)
       this.radioManager.stop();
