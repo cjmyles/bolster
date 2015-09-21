@@ -86,6 +86,10 @@ module.exports = {
     // Add logging cability to Bolster itself (how ironic)!
     ole.assimilate(this);
 
+    if (options.mixins) {
+      _.mixin(options.mixins);
+    }
+
     if (options.enableCookieAuth) {
       utils.enableCookieAuth();
     }
