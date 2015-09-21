@@ -1,3 +1,10 @@
+# 2.1.8 (Sep 21, 2015)
+
+## New features
+
+- Added option to add underscore mixin methods
+
+
 # 2.1.7 (Sep 18, 2015)
 
 ## New features
