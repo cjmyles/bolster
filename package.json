@@ -1,6 +1,6 @@
 {
   "name": "bolster",
-  "version": "2.1.8",
+  "version": "2.1.9",
   "description": "Easily create and manage Backbone Marionette applications with Backbone Relational & Backbone Radio integration, module runner and more.",
   "keywords": [
     "backbone",
