@@ -36,6 +36,9 @@ module.exports = Mn.Object.extend({
     _.each(events, function(x, id) {
       _.each(events[id], function(y, command) {
         // console.log('radio[' + id + '][' + command + ']', y);
+        if (command === 'comply') {
+          command = 'reply';
+        }
         Backbone.Radio.channel(id)[command](owner.normalizeMethods(y), owner);
       });
     });

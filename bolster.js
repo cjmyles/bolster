@@ -15,7 +15,7 @@
 
 // Backbone
 var Backbone = require('backbone');
-Backbone.$ = jQuery;
+// Backbone.$ = jQuery;
 // Underscore
 var _ = require('underscore');
 // Backbone Marionette

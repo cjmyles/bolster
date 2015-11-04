@@ -8,6 +8,10 @@ module.exports = {
     Backbone.history.navigate(route, { trigger: true });
   },
 
+  refresh: function(route) {
+    location.reload();
+  },
+
   back: function() {
     Backbone.history.history.back();
   },
